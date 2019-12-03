@@ -1,0 +1,71 @@
+aFactors=[]
+dic1={}
+res=[]
+aux=1
+n=20
+
+for x in range(2, n+1):          
+    templ=prime_facs(x)
+    if len(templ)==1:       
+        templ.append(templ[0])
+        templ[0]=1
+        aFactors.append(templ)
+    else:
+        aFactors.append(templ)
+    
+    
+for i in range(0,len(aFactors)): #***************************************************** Test
+    print(aFactors[i])
+print('**************************************************************************************')
+    #***************************************************** Test  
+    
+      
+for i in range(0,len(aFactors)): #obtaining the largest array
+    if len(aFactors[i]) > aux:
+        aux=len(aFactors[i])
+for j in range(0, len(aFactors)): #resizing all the arrays to have the same lenght
+    if len(aFactors[j])<=aux:
+        while len(aFactors[j])<=((int)(n/20)+2):
+            aFactors[j].append(1)
+for i in range(0,len(aFactors)): #***************************************************** Test
+    print(aFactors[i])
+print('**************************************************************************************')
+    #***************************************************** Test
+for i in range(0, aux):           #Obtaining the MCP
+    for j in range(0, len(aFactors)):
+        for k in range(0, len(aFactors)):
+            if k==j:
+                continue
+            if aFactors[k][i] == aFactors[j][i]:
+                aFactors[k][i]=1
+aux=1
+for i in range(0,len(aFactors)): #***************************************************** Test
+    print(aFactors[i])
+    
+for i in range(len(aFactors)):
+    res.extend(aFactors[i])
+i=0 #loop counter
+length = len(res)  #list length
+while(i<length):
+	if(res[i]==1):
+		res.remove (res[i])
+		length = length -1
+		continue
+	i = i+1
+res.sort()
+print(res)
+
+def prime_facs(n):
+  factors=[]
+  i=2
+  while n>1:
+      if n%i==0:
+          try:
+              dic1[i] = dic1.get(i) + 1
+          except Exception:
+              dic1[i] = 1
+          factors.append(i)
+          n=n/i
+      else:
+          i=i+1
+  return factors
